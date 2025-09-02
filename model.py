@@ -109,10 +109,10 @@ class FakeNewsDetector:
 
         X_new = scipy.sparse.hstack([title_feat, text_feat])
         pred = self.model.predict(X_new)[0]
-        prob = self.model.predict_proba(X_new)[0]
-
+        prob = f"{max(self.model.predict_proba(X_new)[0]) * 100:.2f}%"
+        
         return {"prediction": "REAL" if pred == 1 else "FAKE",
-                "confidence": max(prob)}
+                "confidence": prob}
 
 if __name__ == "__main__":
     detector = FakeNewsDetector()
